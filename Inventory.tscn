@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://pr10imbbnmal"]
+
+[ext_resource type="Script" uid="uid://df4u5fg1f5a0i" path="res://inventory.gd" id="1_ki15f"]
+[ext_resource type="Texture2D" uid="uid://cbjovqj6c1eag" path="res://icon.svg" id="2_nwt7c"]
+
+[node name="Inventory" type="Control" node_paths=PackedStringArray("selector", "inventoryVisualsList")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ki15f")
+selector = NodePath("Selector")
+inventoryVisualsList = [NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect1"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect2"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect3"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect4"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect5"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect6"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect7"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect8")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_nwt7c")
+expand_mode = 2
+
+[node name="Selector" type="TextureRect" parent="."]
+modulate = Color(1, 0, 1, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_nwt7c")
