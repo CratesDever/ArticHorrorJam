@@ -1,11 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://dlg5u2opyl8da"]
+[gd_scene load_steps=20 format=3 uid="uid://dlg5u2opyl8da"]
 
 [ext_resource type="Script" uid="uid://dwgdxpvyf87sq" path="res://player_controller.gd" id="1_m4h0p"]
 [ext_resource type="PackedScene" uid="uid://pr10imbbnmal" path="res://Inventory.tscn" id="1_y8348"]
 [ext_resource type="Script" uid="uid://g7tvsw4foe8y" path="res://item_inspector.gd" id="2_b0g7i"]
 [ext_resource type="Texture2D" uid="uid://cbjovqj6c1eag" path="res://icon.svg" id="2_iyny8"]
 [ext_resource type="Script" uid="uid://dpputikhqioyr" path="res://door.gd" id="2_ln6c4"]
-[ext_resource type="Script" uid="uid://fiu4u7vb6k6u" path="res://item.gd" id="5_b0g7i"]
+[ext_resource type="Script" uid="uid://fiu4u7vb6k6u" path="res://itempickup.gd" id="5_b0g7i"]
+[ext_resource type="PackedScene" uid="uid://bopfufqof41pe" path="res://Prefabs/Bullet.tscn" id="5_x4635"]
+[ext_resource type="Resource" uid="uid://c8qwhfmu1k6nj" path="res://Items/pistol.tres" id="7_x5bf6"]
+[ext_resource type="Resource" uid="uid://bspxd3b8oa348" path="res://Items/NewItem.tres" id="9_x4635"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ln6c4"]
 
@@ -31,12 +34,12 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Inventory" parent="CanvasLayer" instance=ExtResource("1_y8348")]
-visible = false
+[node name="Inventory" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("1_y8348")]
 offset_left = -6.0
 offset_right = -6.0
+player = NodePath("../../CharacterBody3D")
 
-[node name="ItemInspector" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("yesButton", "noButton", "selector")]
+[node name="ItemInspector" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("yesButton", "noButton", "selector", "playerScript")]
 visible = false
 layout_mode = 3
 anchors_preset = 7
@@ -53,7 +56,8 @@ size_flags_horizontal = 4
 script = ExtResource("2_b0g7i")
 yesButton = NodePath("HBoxContainer/YesButton")
 noButton = NodePath("HBoxContainer/NoButton")
-selector = NodePath("HBoxContainer/Selector")
+selector = NodePath("Selector")
+playerScript = NodePath("../../CharacterBody3D")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ItemInspector"]
 layout_mode = 1
@@ -79,9 +83,13 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2_iyny8")
 
-[node name="Selector" type="TextureRect" parent="CanvasLayer/ItemInspector/HBoxContainer"]
+[node name="Selector" type="TextureRect" parent="CanvasLayer/ItemInspector"]
 modulate = Color(0.129412, 1, 1, 1)
 layout_mode = 2
+offset_left = 22.0
+offset_top = -88.0
+offset_right = 150.0
+offset_bottom = 40.0
 texture = ExtResource("2_iyny8")
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -152,12 +160,14 @@ shape = SubResource("BoxShape3D_ln6c4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 4.44089e-16, 0, 1, 0, 0, 0.2)
 mesh = SubResource("BoxMesh_y8348")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("aimTarget", "inventory", "itemInspect")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("aimTarget", "inventory", "itemInspect", "firePoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0145483, 1.0851, -0.0161498)
 script = ExtResource("1_m4h0p")
 aimTarget = NodePath("AimPivot")
 inventory = NodePath("../CanvasLayer/Inventory")
 itemInspect = NodePath("../CanvasLayer/ItemInspector")
+bullet = ExtResource("5_x4635")
+firePoint = NodePath("AimPivot/FirePoint")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_y501q")
@@ -175,6 +185,9 @@ mesh = SubResource("BoxMesh_m4h0p")
 transform = Transform3D(-5.17533e-08, 0, 0.30035, 0, 0.361463, 0, -1.18398, 0, -1.31287e-08, -0.00981891, 0.11629, -0.5642)
 mesh = SubResource("BoxMesh_m4h0p")
 skeleton = NodePath("../..")
+
+[node name="FirePoint" type="Node3D" parent="CharacterBody3D/AimPivot"]
+transform = Transform3D(1.18398, 0, 0, 0, 0.361463, 0, 0, 0, 0.30035, -0.00981891, 0.11629, -1.19476)
 
 [node name="Area3D" type="Area3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.325164, 0)
@@ -221,11 +234,34 @@ transform = Transform3D(0.5, -0.408721, 0.76351, 0, 0.881625, 0.47195, -0.866025
 [node name="Item" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.7097, 0.582626, 0)
 script = ExtResource("5_b0g7i")
+item = ExtResource("7_x5bf6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Item"]
 shape = SubResource("BoxShape3D_y8348")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Item"]
+mesh = SubResource("SphereMesh_y501q")
+
+[node name="Item2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.54753, 0.582626, 0)
+script = ExtResource("5_b0g7i")
+item = ExtResource("7_x5bf6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Item2"]
+shape = SubResource("BoxShape3D_y8348")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Item2"]
+mesh = SubResource("SphereMesh_y501q")
+
+[node name="Item3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.54753, 0.582626, -4.45174)
+script = ExtResource("5_b0g7i")
+item = ExtResource("9_x4635")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Item3"]
+shape = SubResource("BoxShape3D_y8348")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Item3"]
 mesh = SubResource("SphereMesh_y501q")
 
 [connection signal="area_entered" from="CharacterBody3D/Area3D" to="CharacterBody3D" method="_on_area_3d_area_entered"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://pr10imbbnmal"]
+[gd_scene load_steps=4 format=3 uid="uid://pr10imbbnmal"]
 
 [ext_resource type="Script" uid="uid://df4u5fg1f5a0i" path="res://inventory.gd" id="1_ki15f"]
+[ext_resource type="Texture2D" uid="uid://bhlnh27g15b63" path="res://DirtTierArt/BlankBox.png" id="2_jqulp"]
 [ext_resource type="Texture2D" uid="uid://cbjovqj6c1eag" path="res://icon.svg" id="2_nwt7c"]
 
-[node name="Inventory" type="Control" node_paths=PackedStringArray("selector", "inventoryVisualsList")]
+[node name="Inventory" type="Control" node_paths=PackedStringArray("selector", "inventoryVisualsList", "equippedSlot", "equipMenu", "equipSelector", "equipVisualsList")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +14,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ki15f")
 selector = NodePath("Selector")
+emptySlotImage = ExtResource("2_jqulp")
 inventoryVisualsList = [NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect1"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect2"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect3"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect4"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect5"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect6"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect7"), NodePath("VBoxContainer/HBoxContainer/GridContainer/TextureRect8")]
+equippedSlot = NodePath("VBoxContainer/HBoxContainer/EquippedSlot")
+equipMenu = NodePath("EquipMenu")
+equipSelector = NodePath("EquipMenu/SelectorEquip")
+equipVisualsList = [NodePath("EquipMenu/VBoxContainer2/TextureRect"), NodePath("EquipMenu/VBoxContainer2/TextureRect2"), NodePath("EquipMenu/VBoxContainer2/TextureRect3")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -28,39 +35,39 @@ columns = 4
 
 [node name="TextureRect1" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect6" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect7" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
 [node name="TextureRect8" type="TextureRect" parent="VBoxContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="EquippedSlot" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("2_jqulp")
 expand_mode = 2
 
 [node name="Selector" type="TextureRect" parent="."]
@@ -68,4 +75,36 @@ modulate = Color(1, 0, 1, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("2_nwt7c")
+
+[node name="EquipMenu" type="Control" parent="."]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_top = 264.0
+offset_bottom = 264.0
+scale = Vector2(0.5, 0.5)
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="EquipMenu"]
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 260.0
+
+[node name="TextureRect" type="TextureRect" parent="EquipMenu/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_jqulp")
+
+[node name="TextureRect2" type="TextureRect" parent="EquipMenu/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_jqulp")
+
+[node name="TextureRect3" type="TextureRect" parent="EquipMenu/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_jqulp")
+
+[node name="SelectorEquip" type="TextureRect" parent="EquipMenu"]
+modulate = Color(1, 0, 1, 1)
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
 texture = ExtResource("2_nwt7c")

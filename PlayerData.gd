@@ -6,7 +6,6 @@ class_name PlayerData
 @export var health = 100
 
 @export var SavedPosition : Vector3
-
 func change_health(value : int):
 	health += value
 	

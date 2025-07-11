@@ -1,6 +1,9 @@
-class_name Item
-extends Area3D
+extends Resource
 
+class_name inv_item
 
-func pickedup():
-	queue_free()
+@export var image : Texture2D
+@export var model : PackedScene
+@export var itemName: String
+@export var isGun : bool = false
+@export var is9mm: bool = false
