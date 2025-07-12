@@ -14,6 +14,7 @@ var equipisOpen = false
 @export var equipSelector : Control
 @export var equipVisualsList : Array[Node]
 @export var player : Player
+@export var itemPrefab : PackedScene
 var equipSelectNum = 0
 
 func _input(event: InputEvent) -> void:
@@ -76,13 +77,29 @@ func _input(event: InputEvent) -> void:
 						inventoryVisualsList[i].texture = emptySlotImage
 				CheckEquipWeapon()
 			if equipSelectNum == 1:
-				pass
+				var itmObj = itemPrefab.instantiate()
+				itmObj.position = player.global_position
+				itmObj.SetChildItem(items[selectNum])
+				get_tree().root.add_child(itmObj)
+				items.remove_at(selectNum)
+				inventoryVisualsList[selectNum].texture = emptySlotImage 
+				for a in inventoryVisualsList:
+					a.texture = emptySlotImage
+				for i in items.size():
+					if i < items.size() and items[i] != null:
+						inventoryVisualsList[i].texture = items[i].image
+					else:
+						inventoryVisualsList[i].texture = emptySlotImage
+				
 			if equipSelectNum == 2:
 				pass
 			EquipOpen(false)
 		
 func Open(isTrue):
+	selectNum = 0
 	isOpen = isTrue		
+	selector.position = inventoryVisualsList[selectNum].position
+	
 func updateSelector():
 	selector.position = inventoryVisualsList[selectNum].position
 	
@@ -95,6 +112,8 @@ func AddItem(item):
 			inventoryVisualsList[i].texture = emptySlotImage
 func EquipOpen(isTrue):
 	if isTrue:
+		equipSelectNum = 0
+		equipSelector.position = equipVisualsList[equipSelectNum].position
 		equipMenu.position = inventoryVisualsList[selectNum].position
 		equipisOpen = true
 		equipMenu.show()
@@ -108,3 +127,22 @@ func CheckEquipWeapon():
 	else:
 		player.SetGun(false)
 		
+func GetInventory() -> Array[inv_item]:
+	return items
+func GetEquipped() -> inv_item:
+	return equippedItem
+func LoadItems(loaded,equipLoad):
+	items.clear()
+	items = loaded
+	equippedItem = equipLoad
+	if equippedItem != null:
+		equippedSlot.texture = equippedItem.image
+	else:
+		equippedSlot.texture = emptySlotImage
+	for a in inventoryVisualsList.size():
+		inventoryVisualsList[a].texture = emptySlotImage	
+	for i in items.size():
+		if i < items.size() and items[i] != null:
+			inventoryVisualsList[i].texture = items[i].image
+		else:
+			inventoryVisualsList[i].texture = emptySlotImage	

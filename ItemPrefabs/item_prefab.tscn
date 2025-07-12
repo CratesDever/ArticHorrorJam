@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://br6a1ucigvg61"]
+
+[ext_resource type="Script" uid="uid://fiu4u7vb6k6u" path="res://itempickup.gd" id="1_hydsp"]
+[ext_resource type="Script" uid="uid://q641vjbrx5md" path="res://ItemPrefabs/itemSetter.gd" id="1_ntw6b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hydsp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y8348"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ntw6b"]
+
+[node name="ItemVisual" type="RigidBody3D" node_paths=PackedStringArray("itemScript")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_ntw6b")
+itemScript = NodePath("ItemPistol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hydsp")
+
+[node name="ItemPistol" type="Area3D" parent="."]
+script = ExtResource("1_hydsp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemPistol"]
+shape = SubResource("BoxShape3D_y8348")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ItemPistol"]
+mesh = SubResource("BoxMesh_ntw6b")

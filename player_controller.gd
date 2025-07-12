@@ -31,9 +31,11 @@ func verify_save_directory(path: String):
 func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	self.position = playerData.SavedPosition
+	inventory.LoadItems(playerData.savedItems, playerData.savedEquip)
 	print("Loaded")
 func save():
 	playerData.update_position(self.position)
+	playerData.update_items(inventory.GetInventory(), inventory.GetEquipped())
 	ResourceSaver.save(playerData, save_file_path + save_file_name)
 	print("save")
 	
@@ -46,14 +48,14 @@ func _input(event: InputEvent) -> void:
 		isAiming = true
 	else:
 		isAiming = false
-	if Input.is_action_just_pressed("TAB"):
+	if Input.is_action_just_pressed("TAB") and !inspectOpen:
 		isOpenInventory = !isOpenInventory
 		inventory.Open(isOpenInventory)
 		if isOpenInventory:
 			inventory.show()
 		else:
 			inventory.hide()
-	if Input.is_action_just_pressed("SPACE") and currentBody != null and !inspectOpen and !isAiming:
+	if Input.is_action_just_pressed("SPACE") and currentBody != null and !inspectOpen and !isAiming and !isOpenInventory:
 		itemInspect.show()
 		canMove = false
 		itemInspect.SetOpen(true)
@@ -91,7 +93,7 @@ func _physics_process(delta):
 					var bul = bullet.instantiate()
 					bul.position = firePoint.global_position
 					bul.rotation = firePoint.global_rotation
-					get_parent().add_child(bul)
+					get_parent().get_parent().add_child(bul)
 				if Input.is_action_pressed("W"):
 					aim_input += 1.0
 				if Input.is_action_pressed("S"):

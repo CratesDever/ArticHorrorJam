@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://df4u5fg1f5a0i" path="res://inventory.gd" id="1_ki15f"]
 [ext_resource type="Texture2D" uid="uid://bhlnh27g15b63" path="res://DirtTierArt/BlankBox.png" id="2_jqulp"]
-[ext_resource type="Texture2D" uid="uid://cbjovqj6c1eag" path="res://icon.svg" id="2_nwt7c"]
+[ext_resource type="Texture2D" uid="uid://blqqgwinrl42" path="res://DirtTierArt/Selector.png" id="3_nwt7c"]
 
 [node name="Inventory" type="Control" node_paths=PackedStringArray("selector", "inventoryVisualsList", "equippedSlot", "equipMenu", "equipSelector", "equipVisualsList")]
 visible = false
@@ -75,7 +75,7 @@ modulate = Color(1, 0, 1, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("3_nwt7c")
 
 [node name="EquipMenu" type="Control" parent="."]
 visible = false
@@ -94,17 +94,68 @@ offset_bottom = 260.0
 layout_mode = 2
 texture = ExtResource("2_jqulp")
 
+[node name="Label" type="Label" parent="EquipMenu/VBoxContainer2/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Equip"
+horizontal_alignment = 1
+
 [node name="TextureRect2" type="TextureRect" parent="EquipMenu/VBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("2_jqulp")
 
+[node name="Label" type="Label" parent="EquipMenu/VBoxContainer2/TextureRect2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Drop"
+horizontal_alignment = 1
+
 [node name="TextureRect3" type="TextureRect" parent="EquipMenu/VBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("2_jqulp")
+
+[node name="Label" type="Label" parent="EquipMenu/VBoxContainer2/TextureRect3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "None"
+horizontal_alignment = 1
 
 [node name="SelectorEquip" type="TextureRect" parent="EquipMenu"]
 modulate = Color(1, 0, 1, 1)
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
-texture = ExtResource("2_nwt7c")
+texture = ExtResource("3_nwt7c")

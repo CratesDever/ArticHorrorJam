@@ -24,8 +24,9 @@ func _input(event: InputEvent) -> void:
 			selector.global_position = yesButton.global_position
 func SetOpen(isTrue):
 	
+	await get_tree().create_timer(0.1).timeout
 	
-	await get_tree().create_timer(0.2).timeout
 	isOpen = isTrue
+	
 	
 		

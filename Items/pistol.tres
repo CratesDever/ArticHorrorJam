@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="inv_item" load_steps=3 format=3 uid="uid://c8qwhfmu1k6nj"]
+[gd_resource type="Resource" script_class="inv_item" load_steps=4 format=3 uid="uid://c8qwhfmu1k6nj"]
 
 [ext_resource type="Script" uid="uid://bapcdrf6wmpg3" path="res://item.gd" id="1_bdty5"]
 [ext_resource type="Texture2D" uid="uid://dsml1tlpwnb5c" path="res://DirtTierArt/Pistol.png" id="1_ikhv2"]
+[ext_resource type="PackedScene" uid="uid://br6a1ucigvg61" path="res://ItemPrefabs/item_prefab.tscn" id="2_rqwr8"]
 
 [resource]
 script = ExtResource("1_bdty5")
 image = ExtResource("1_ikhv2")
+model = ExtResource("2_rqwr8")
 itemName = "GodotMan"
 isGun = true
 is9mm = false

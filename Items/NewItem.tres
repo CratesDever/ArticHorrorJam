@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="inv_item" load_steps=3 format=3 uid="uid://bspxd3b8oa348"]
+[gd_resource type="Resource" script_class="inv_item" load_steps=4 format=3 uid="uid://bspxd3b8oa348"]
 
 [ext_resource type="Texture2D" uid="uid://cbjovqj6c1eag" path="res://icon.svg" id="1_10v5j"]
+[ext_resource type="PackedScene" uid="uid://br6a1ucigvg61" path="res://ItemPrefabs/item_prefab.tscn" id="2_mo3mf"]
 [ext_resource type="Script" uid="uid://bapcdrf6wmpg3" path="res://item.gd" id="2_tbvsw"]
 
 [resource]
 script = ExtResource("2_tbvsw")
 image = ExtResource("1_10v5j")
+model = ExtResource("2_mo3mf")
 itemName = "GodotMan"
+isGun = false
+is9mm = true
 metadata/_custom_type_script = "uid://bapcdrf6wmpg3"
