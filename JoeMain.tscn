@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dlg5u2opyl8da"]
+[gd_scene load_steps=22 format=3 uid="uid://dlg5u2opyl8da"]
 
 [ext_resource type="Script" uid="uid://dwgdxpvyf87sq" path="res://player_controller.gd" id="1_m4h0p"]
 [ext_resource type="PackedScene" uid="uid://pr10imbbnmal" path="res://Inventory.tscn" id="1_y8348"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://boc86l7t33r25" path="res://Prefabs/Zombie.tscn" id="11_roron"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_x4635"]
+vertices = PackedVector3Array(10, 5, -21.1848, -8.75, 5, -21.1848, 10.25, 5, -20.6848, 10.5, 5, -8.43481, 10.25, 5, -8.43481, 2, 5, -8.18481, 10.25, 5, -7.68481, 10.5, 5, -7.68481, 12, 5, -7.93481, 10, 5, 7.81519, 10.5, 5, 7.81519, 10.5, 5, -23.6848, -8.75, 0.5, -22.6848, -8.75, 0.5, -22.1848, 9.25, 0.5, -22.1848, 9.25, 0.5, -22.6848, -10, 0.5, -13.1848, -10, 0.5, -15.6848, -11, 0.5, -15.9348, -11, 0.5, -12.9348, -14, 0.5, -7.93481, -13.75, 0.5, -9.18481, -15.25, 0.5, -19.9348, -29.5, 0.5, -22.1848, -29.5, 0.5, -7.93481, -11, 0.5, -9.18481, -11, 0.5, -19.9348, -15.25, 0.5, -22.1848, -0.5, 0.5, -9.18481, -0.25, 0.5, -7.93481, 1, 0.5, -7.93481, 1.25, 0.5, -9.18481, -8.75, 0.5, -15.9348, -8.75, 0.5, -12.9348, 9.25, 0.5, -9.18481, 9.25, 0.5, -19.9348, -8.75, 0.5, -19.9348, -8.75, 0.5, -9.18481, -0.5, 0.5, -6.93481, 1.25, 0.5, -6.93481, -8.5, 0.5, 6.81519, 9.25, 0.5, 6.81519, -8.5, 0.5, -6.93481, 9.25, 0.5, -6.93481, -9.25, 5, 7.81519, -9.5, 5, -6.93481, -9.75, 5, 7.56519, -14.5, 5, 7.81519, 10, 5, 8.06519)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 3), PackedInt32Array(3, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(7, 10, 6), PackedInt32Array(6, 10, 9), PackedInt32Array(2, 0, 11), PackedInt32Array(4, 2, 3), PackedInt32Array(3, 2, 11), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(16, 19, 17), PackedInt32Array(17, 19, 18), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 24), PackedInt32Array(22, 24, 23), PackedInt32Array(19, 25, 21), PackedInt32Array(22, 26, 18), PackedInt32Array(19, 21, 18), PackedInt32Array(18, 21, 22), PackedInt32Array(23, 27, 22), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(28, 33, 31), PackedInt32Array(31, 33, 32), PackedInt32Array(17, 32, 16), PackedInt32Array(16, 32, 33), PackedInt32Array(32, 36, 31), PackedInt32Array(31, 36, 34), PackedInt32Array(34, 36, 35), PackedInt32Array(28, 37, 33), PackedInt32Array(30, 39, 29), PackedInt32Array(29, 39, 38), PackedInt32Array(39, 41, 38), PackedInt32Array(38, 41, 40), PackedInt32Array(40, 42, 38), PackedInt32Array(39, 43, 41), PackedInt32Array(46, 45, 44), PackedInt32Array(44, 48, 47), PackedInt32Array(46, 44, 47)]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ln6c4"]
 size = Vector3(1, 1, 1.09131)
@@ -32,6 +34,9 @@ background_mode = 1
 ambient_light_source = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m4h0p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_roron"]
+size = Vector3(2.88147, 1, 13.4663)
 
 [node name="Node3D" type="Node3D"]
 
@@ -292,11 +297,11 @@ shape = SubResource("BoxShape3D_iyny8")
 environment = SubResource("Environment_roron")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.519619, 9.57648, 0.0831141)
-light_energy = 5.0
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.519619, 13.3245, 0.0831139)
+light_energy = 10.0
 shadow_enabled = true
 shadow_bias = 1.3
-spot_range = 20.0
+spot_range = 25.0
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.218862, 11.054, -15.3551)
@@ -336,11 +341,25 @@ camera = NodePath("Camera3D2")
 [node name="Trigger" type="Area3D" parent="Door"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Trigger"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_m4h0p")
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 1, -3.76294, 1, -6.23315)
+shape = SubResource("BoxShape3D_roron")
 
 [node name="Camera3D2" type="Camera3D" parent="Door"]
 transform = Transform3D(0.5, -0.408721, 0.76351, 0, 0.881625, 0.47195, -0.866025, -0.235975, 0.440813, 9.08467, 3.97153, -1.16517)
+
+[node name="Door3" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4507, 0.411803, -8.7535)
+script = ExtResource("2_ln6c4")
+camera = NodePath("Camera3D2")
+
+[node name="Trigger" type="Area3D" parent="Door3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door3/Trigger"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 1, -4.39941, 1, -6.23315)
+shape = SubResource("BoxShape3D_roron")
+
+[node name="Camera3D2" type="Camera3D" parent="Door3"]
+transform = Transform3D(-4.37114e-08, -0.655176, 0.755476, 0, 0.755476, 0.655176, -1, 2.86387e-08, -3.30229e-08, 1.73635, 4.83236, -5.06847)
 
 [node name="ItemVisual" parent="." instance=ExtResource("7_4wifg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.12137, 0.55, -0.203678)
@@ -358,3 +377,4 @@ speed = 0.5
 [connection signal="area_exited" from="CharacterBody3D/Area3D" to="CharacterBody3D" method="_on_area_3d_area_exited"]
 [connection signal="body_entered" from="Door2/Trigger" to="Door2" method="_on_trigger_body_entered"]
 [connection signal="body_entered" from="Door/Trigger" to="Door" method="_on_trigger_body_entered"]
+[connection signal="body_entered" from="Door3/Trigger" to="Door3" method="_on_trigger_body_entered"]
