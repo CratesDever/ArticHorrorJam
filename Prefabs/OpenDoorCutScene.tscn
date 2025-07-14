@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs2mlauinnxr6"]
+
+[ext_resource type="Script" uid="uid://cj3su5yatqthr" path="res://Scripts/doorcutscene.gd" id="1_8m0cw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_aod31"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m0cw"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_syvgd"]
+resource_name = "DoorEnter"
+length = 3.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorPivot")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.966667, 1, 0, 0.709724, 0, 0.704479)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraParent")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.188618, 1.10039, 0.933333, 1, 0, 0.188618, 1.00404, 3.5, 1, 0, 0.188618, -0.502035)
+
+[sub_resource type="Animation" id="Animation_j77cu"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorPivot")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraParent")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.0813099, 0.905478)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qdf54"]
+_data = {
+&"DoorEnter": SubResource("Animation_syvgd"),
+&"RESET": SubResource("Animation_j77cu")
+}
+
+[node name="OpenDoorCutScene" type="Node3D" node_paths=PackedStringArray("animationPlayer", "thisCamera")]
+script = ExtResource("1_8m0cw")
+animationPlayer = NodePath("AnimationPlayer")
+thisCamera = NodePath("CameraParent/Camera3D")
+
+[node name="DoorPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.297823, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DoorPivot"]
+transform = Transform3D(0.548591, 0, 0, 0, 1, 0, 0, 0, 0.217621, 0.297823, 0, 0)
+mesh = SubResource("BoxMesh_aod31")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_8m0cw")
+
+[node name="CameraParent" type="Node3D" parent="."]
+transform = Transform3D(0.548591, 0, 0, 0, 1, 0, 0, 0, 0.217621, 0, 0.0813099, 0.905478)
+
+[node name="Camera3D" type="Camera3D" parent="CameraParent"]
+transform = Transform3D(1.82285, 0, 0, 0, 1, 0, 0, 0, 4.59515, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qdf54")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

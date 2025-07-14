@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://boc86l7t33r25"]
 
-[ext_resource type="Script" uid="uid://hpw4tceruts" path="res://Prefabs/zombie.gd" id="1_p4ifj"]
+[ext_resource type="Script" uid="uid://hpw4tceruts" path="res://Scripts/zombie.gd" id="1_p4ifj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p4ifj"]
 

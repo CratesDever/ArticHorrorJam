@@ -1,13 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://dlg5u2opyl8da"]
+[gd_scene load_steps=27 format=3 uid="uid://dlg5u2opyl8da"]
 
-[ext_resource type="Script" uid="uid://dwgdxpvyf87sq" path="res://player_controller.gd" id="1_m4h0p"]
-[ext_resource type="PackedScene" uid="uid://pr10imbbnmal" path="res://Inventory.tscn" id="1_y8348"]
-[ext_resource type="Script" uid="uid://g7tvsw4foe8y" path="res://item_inspector.gd" id="2_b0g7i"]
-[ext_resource type="Script" uid="uid://dpputikhqioyr" path="res://door.gd" id="2_ln6c4"]
+[ext_resource type="Script" uid="uid://dwgdxpvyf87sq" path="res://Scripts/player_controller.gd" id="1_m4h0p"]
+[ext_resource type="PackedScene" uid="uid://pr10imbbnmal" path="res://Prefabs/Inventory.tscn" id="1_y8348"]
+[ext_resource type="Script" uid="uid://g7tvsw4foe8y" path="res://Scripts/item_inspector.gd" id="2_b0g7i"]
+[ext_resource type="Script" uid="uid://dpputikhqioyr" path="res://Scripts/door.gd" id="2_ln6c4"]
 [ext_resource type="Texture2D" uid="uid://bhlnh27g15b63" path="res://DirtTierArt/BlankBox.png" id="4_4wifg"]
 [ext_resource type="Texture2D" uid="uid://blqqgwinrl42" path="res://DirtTierArt/Selector.png" id="5_4wifg"]
 [ext_resource type="PackedScene" uid="uid://bopfufqof41pe" path="res://Prefabs/Bullet.tscn" id="5_x4635"]
+[ext_resource type="Script" uid="uid://c3scn470q8pw8" path="res://Scripts/door_trigger.gd" id="6_71tqs"]
 [ext_resource type="PackedScene" uid="uid://br6a1ucigvg61" path="res://ItemPrefabs/item_prefab.tscn" id="7_4wifg"]
+[ext_resource type="PackedScene" uid="uid://bs2mlauinnxr6" path="res://Prefabs/OpenDoorCutScene.tscn" id="7_ruhjq"]
 [ext_resource type="Resource" uid="uid://c8qwhfmu1k6nj" path="res://Items/pistol.tres" id="7_x5bf6"]
 [ext_resource type="Resource" uid="uid://bspxd3b8oa348" path="res://Items/NewItem.tres" id="9_x4635"]
 [ext_resource type="PackedScene" uid="uid://boc86l7t33r25" path="res://Prefabs/Zombie.tscn" id="11_roron"]
@@ -21,6 +23,10 @@ size = Vector3(1, 1, 1.09131)
 
 [sub_resource type="BoxMesh" id="BoxMesh_y8348"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_71tqs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_71tqs"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y501q"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iyny8"]
@@ -28,6 +34,8 @@ size = Vector3(1, 1, 1.09131)
 [sub_resource type="BoxMesh" id="BoxMesh_m4h0p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iyny8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bcfsu"]
 
 [sub_resource type="Environment" id="Environment_roron"]
 background_mode = 1
@@ -159,8 +167,15 @@ shape = SubResource("BoxShape3D_ln6c4")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor2/CollisionShape3D"]
 mesh = SubResource("BoxMesh_y8348")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D/Floor2/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+[node name="Floor3" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -15)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor3"]
+transform = Transform3D(20, 0, 0, 0, 0.1, 0, 0, 0, 15, 0, 0, 0)
+shape = SubResource("BoxShape3D_ln6c4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor3/CollisionShape3D"]
 mesh = SubResource("BoxMesh_y8348")
 
 [node name="Wall" type="StaticBody3D" parent="NavigationRegion3D"]
@@ -201,8 +216,7 @@ transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 10, 13, 2, -5)
 shape = SubResource("BoxShape3D_ln6c4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Wall3/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 4.44089e-16, 0, 1, 0, 0, 0.2)
-mesh = SubResource("BoxMesh_y8348")
+mesh = SubResource("BoxMesh_71tqs")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/Wall3"]
 transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 10, 13, 2, 10)
@@ -210,6 +224,32 @@ shape = SubResource("BoxShape3D_ln6c4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Wall3/CollisionShape3D2"]
 mesh = SubResource("BoxMesh_y8348")
+
+[node name="DoorTrigger" type="Area3D" parent="NavigationRegion3D" node_paths=PackedStringArray("cutscene", "enterDoorPosition")]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -8.34362, 1.42399, -14.2812)
+script = ExtResource("6_71tqs")
+cutscene = NodePath("../../OpenDoorCutScene")
+enterDoorPosition = NodePath("EnteredPosition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/DoorTrigger"]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 3, -0.953721, 0, 0)
+shape = SubResource("BoxShape3D_71tqs")
+
+[node name="EnteredPosition" type="Node3D" parent="NavigationRegion3D/DoorTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.56135, -1.1659, 0)
+
+[node name="DoorTrigger2" type="Area3D" parent="NavigationRegion3D" node_paths=PackedStringArray("cutscene", "enterDoorPosition")]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -9.33272, 1.42399, -14.255)
+script = ExtResource("6_71tqs")
+cutscene = NodePath("../../OpenDoorCutScene")
+enterDoorPosition = NodePath("EnteredPosition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/DoorTrigger2"]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 3, -0.953721, 0, 0)
+shape = SubResource("BoxShape3D_71tqs")
+
+[node name="EnteredPosition" type="Node3D" parent="NavigationRegion3D/DoorTrigger2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32873, -1.1659, 0)
 
 [node name="Wall5" type="StaticBody3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -23, 0, -23)
@@ -226,14 +266,18 @@ mesh = SubResource("BoxMesh_y8348")
 transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 4, 13, 2, 12.6798)
 shape = SubResource("BoxShape3D_ln6c4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Wall5/CollisionShape3D2"]
-mesh = SubResource("BoxMesh_y8348")
-
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D/Wall5/CollisionShape3D2"]
 mesh = SubResource("BoxMesh_y8348")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D/Wall5/CollisionShape3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 3.43032, 0, 1, -1.02947)
+mesh = SubResource("BoxMesh_y8348")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="NavigationRegion3D/Wall5"]
+transform = Transform3D(0.520755, 0, 0, 0, 5, 0, 0, 0, 4, 13.0688, 2, 8.6674)
+shape = SubResource("BoxShape3D_ln6c4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D/Wall5/CollisionShape3D3"]
 mesh = SubResource("BoxMesh_y8348")
 
 [node name="Wall4" type="StaticBody3D" parent="NavigationRegion3D"]
@@ -258,14 +302,15 @@ shape = SubResource("BoxShape3D_ln6c4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 4.44089e-16, 0, 1, 0, 0, 0.2)
 mesh = SubResource("BoxMesh_y8348")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("aimTarget", "inventory", "itemInspect", "firePoint") groups=["Player"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0145483, 1.0851, -0.0161498)
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("aimTarget", "inventory", "itemInspect", "firePoint", "laserSight") groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015, 1.41304, -0.016)
 script = ExtResource("1_m4h0p")
 aimTarget = NodePath("AimPivot")
 inventory = NodePath("../CanvasLayer/Inventory")
 itemInspect = NodePath("../CanvasLayer/ItemInspector")
 bullet = ExtResource("5_x4635")
 firePoint = NodePath("AimPivot")
+laserSight = NodePath("AimPivot/LaserSight")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_y501q")
@@ -287,11 +332,25 @@ skeleton = NodePath("../..")
 [node name="FirePoint" type="Node3D" parent="CharacterBody3D/AimPivot"]
 transform = Transform3D(1.18398, 0, 0, 0, 0.361463, 0, 0, 0, 0.30035, -0.00981891, 0.11629, -1.19476)
 
+[node name="LaserSight" type="SpotLight3D" parent="CharacterBody3D/AimPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.181)
+visible = false
+light_color = Color(1, 0, 0, 1)
+spot_range = 20.0
+spot_attenuation = -4.9
+spot_angle = 1.0
+
 [node name="Area3D" type="Area3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.325164, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Area3D"]
 shape = SubResource("BoxShape3D_iyny8")
+
+[node name="Burner" type="Area3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.21656)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Burner"]
+shape = SubResource("BoxShape3D_bcfsu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_roron")
@@ -304,20 +363,28 @@ shadow_bias = 1.3
 spot_range = 25.0
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.218862, 11.054, -15.3551)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.218862, 11.054, -14.9111)
 light_color = Color(1, 0.25, 0.25, 1)
 light_energy = 3.0
 shadow_enabled = true
 shadow_bias = 1.3
 spot_range = 20.0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="SpotLight3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -5)
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -20.2925, 3.92062, -15.3551)
 light_color = Color(0.384314, 1, 0.254902, 1)
 light_energy = 3.101
 shadow_enabled = true
 omni_range = 13.704
 omni_attenuation = 0.192
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8.56569, 8.5648, -14.4581)
+light_color = Color(1, 0.25, 0.25, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 1.3
+spot_range = 20.0
 
 [node name="Door2" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.411803, -6.7535)
@@ -332,19 +399,20 @@ shape = SubResource("BoxShape3D_m4h0p")
 
 [node name="Camera3D" type="Camera3D" parent="Door2"]
 transform = Transform3D(-0.5, -0.408721, 0.76351, 0, 0.881625, 0.47195, -0.866025, 0.235975, -0.440813, 9, 3.40872, 0.3633)
+current = true
 
-[node name="Door" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+[node name="RoomTrigger" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.411803, -8.7535)
 script = ExtResource("2_ln6c4")
 camera = NodePath("Camera3D2")
 
-[node name="Trigger" type="Area3D" parent="Door"]
+[node name="Trigger" type="Area3D" parent="RoomTrigger"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Trigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomTrigger/Trigger"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 1, -3.76294, 1, -6.23315)
 shape = SubResource("BoxShape3D_roron")
 
-[node name="Camera3D2" type="Camera3D" parent="Door"]
+[node name="Camera3D2" type="Camera3D" parent="RoomTrigger"]
 transform = Transform3D(0.5, -0.408721, 0.76351, 0, 0.881625, 0.47195, -0.866025, -0.235975, 0.440813, 9.08467, 3.97153, -1.16517)
 
 [node name="Door3" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
@@ -359,7 +427,7 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 1, -4.39941, 1, -6.23315)
 shape = SubResource("BoxShape3D_roron")
 
 [node name="Camera3D2" type="Camera3D" parent="Door3"]
-transform = Transform3D(-4.37114e-08, -0.655176, 0.755476, 0, 0.755476, 0.655176, -1, 2.86387e-08, -3.30229e-08, 1.73635, 4.83236, -5.06847)
+transform = Transform3D(-4.37114e-08, 0.246881, -0.969046, 0, 0.969046, 0.246881, 1, 1.07915e-08, -4.23583e-08, -16.169, 6.98189, -5.06847)
 
 [node name="ItemVisual" parent="." instance=ExtResource("7_4wifg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.12137, 0.55, -0.203678)
@@ -373,8 +441,13 @@ startingItem = ExtResource("9_x4635")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74124, 1.05, -15.6069)
 speed = 0.5
 
+[node name="OpenDoorCutScene" parent="." instance=ExtResource("7_ruhjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.081358, -7.49163, 12.5912)
+
+[connection signal="body_entered" from="NavigationRegion3D/DoorTrigger" to="NavigationRegion3D/DoorTrigger" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion3D/DoorTrigger2" to="NavigationRegion3D/DoorTrigger2" method="_on_body_entered"]
 [connection signal="area_entered" from="CharacterBody3D/Area3D" to="CharacterBody3D" method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="CharacterBody3D/Area3D" to="CharacterBody3D" method="_on_area_3d_area_exited"]
 [connection signal="body_entered" from="Door2/Trigger" to="Door2" method="_on_trigger_body_entered"]
-[connection signal="body_entered" from="Door/Trigger" to="Door" method="_on_trigger_body_entered"]
+[connection signal="body_entered" from="RoomTrigger/Trigger" to="RoomTrigger" method="_on_trigger_body_entered"]
 [connection signal="body_entered" from="Door3/Trigger" to="Door3" method="_on_trigger_body_entered"]

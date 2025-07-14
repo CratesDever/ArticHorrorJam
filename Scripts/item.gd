@@ -6,4 +6,4 @@ class_name inv_item
 @export var model : PackedScene
 @export var itemName: String
 @export var isGun : bool = false
-@export var is9mm: bool = false
+@export var gunID : int = 0

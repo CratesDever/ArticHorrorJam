@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://br6a1ucigvg61"]
 
-[ext_resource type="Script" uid="uid://fiu4u7vb6k6u" path="res://itempickup.gd" id="1_hydsp"]
+[ext_resource type="Script" uid="uid://fiu4u7vb6k6u" path="res://Scripts/itempickup.gd" id="1_hydsp"]
 [ext_resource type="Script" uid="uid://q641vjbrx5md" path="res://ItemPrefabs/itemSetter.gd" id="1_ntw6b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hydsp"]

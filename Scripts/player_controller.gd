@@ -14,6 +14,7 @@ var playerData = PlayerData.new()
 @export var itemInspect : Control
 @export var bullet : PackedScene
 @export var firePoint : Node3D
+@export var laserSight : Node3D
 var isAiming : bool = false 
 var isTurning = false
 var current_yaw
@@ -32,6 +33,8 @@ func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	self.position = playerData.SavedPosition
 	inventory.LoadItems(playerData.savedItems, playerData.savedEquip)
+	inventory.CheckEquipWeapon()
+	
 	print("Loaded")
 func save():
 	playerData.update_position(self.position)
@@ -64,6 +67,9 @@ func _input(event: InputEvent) -> void:
 		
 
 func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y -= 250 * delta
+		move_and_slide()
 	if !isOpenInventory and canMove:
 		if !isAiming:
 			if abs(angle_difference(aimTarget.rotation.x, 0)) > 0.05:
@@ -108,7 +114,7 @@ func _physics_process(delta):
 			var forward_dir := -transform.basis.z
 			velocity = forward_dir * move_input * move_speed
 			move_and_slide()
-			
+		
 
 
 
@@ -141,4 +147,13 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 		
 func SetGun(isTrue):
 	print("Armed")
+	if isTrue:
+		laserSight.show()
+	else:
+		laserSight.hide()
+		
 	hasGun = isTrue
+	
+	
+func SetPlayerPosition(pos):
+	self.global_position = pos

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bopfufqof41pe"]
 
-[ext_resource type="Script" uid="uid://bts02lsffrl0j" path="res://Prefabs/bullet.gd" id="1_62lvt"]
+[ext_resource type="Script" uid="uid://bts02lsffrl0j" path="res://Scripts/bullet.gd" id="1_62lvt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pv5ng"]
 
